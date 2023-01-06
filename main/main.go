@@ -6,7 +6,12 @@ import (
 )
 
 func main() {
-	var a = CLIresps.NewContact()
+	var a CLIresps.Editor
+	contact := CLIresps.Contact{}
+	a = &contact
+
+
+
 	a.WriteContact("Ivan", "112343", "gg", "1")
 	a.WriteContact("Vasya", "243213", "wp", "2")
 	a.WriteContact("Asya", "666323", "lol", "3")

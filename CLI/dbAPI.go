@@ -12,26 +12,23 @@ var (
 )
 
 type Editor interface {
-	WriteContact()
-	DeleteContact()
-	ChangeContact()
+	WriteContact(Nm string, Nmbr string, Cmmnt string, Id string)
+	DeleteContact(Id string)
+	ShowContactInfo(Id string)
+	ShowAllContacts()
+//	ChangeContact()
 }
 
 type Shower interface {
-	ShowContactInfo()
+	ShowContactInfo(Id string)
 	ShowAllContacts()
 }
-
 
 type Contact struct {
 	Name    string `json:"NAME"`
 	Number  string `json:"NUM"`
 	Comment string `json:"COMM"`
 	ID      string `json:"ID"`
-}
-
-func NewContact() *Contact {
-	return new(Contact)
 }
 
 func (c *Contact) WriteContact(Nm string, Nmbr string, Cmmnt string, Id string) {
@@ -157,6 +154,4 @@ func (c *Contact) ShowAllContacts() {
 	}
 }
 
-
-
-func (c *Contact) ChangeContact() {}
+//func (c *Contact) ChangeContact() {}
