@@ -99,7 +99,9 @@ func (c *Contact) DeleteContact(Id string) {
 	wroteString := ""
 	for i := 0; i < len(stringArray); i++ {
 		wroteString += stringArray[i]
-		wroteString += "\n"
+		if (i != len(stringArray) - 1) {
+			wroteString += "\n"
+		}
 	}
 
 	file, err1 := os.Create(path)
