@@ -3,6 +3,7 @@ package main
 import (
 	"github.com/VanLavr/GCK/CLI"
 	"fmt"
+	"time"
 )
 
 func main() {
@@ -19,7 +20,56 @@ func main() {
 		fmt.Println("`````````````````````````````````````````````````````````````````````````````````````````````|`````````````````````````````````````````")
 		fmt.Scan(&choice)
 		if choice == "0" {
+
+			out1 := make(chan string)
+			out2 := make(chan string)
+			out3 := make(chan string)
+			out4 := make(chan string)
+
+			go IDontKnowHowToUseConcurrencyHere(out1, "saving data...")
+			go IDontKnowHowToUseConcurrencyHere(out2, "checking storage...")
+			go IDontKnowHowToUseConcurrencyHere(out3, "translating...")
+			go IDontKnowHowToUseConcurrencyHere(out4, "i'm dumb...")
+
+			for {
+				message1, opened1 := <- out1
+				fmt.Println(message1)
+				time.Sleep(time.Millisecond * 250)
+
+				for {
+					message2, opened2 := <- out2
+					fmt.Println(message2)
+					time.Sleep(time.Millisecond * 250)
+					if !opened2 {
+						break
+					}
+				}
+
+				for {
+					message3, opened3 := <- out3
+					fmt.Println(message3)
+					time.Sleep(time.Millisecond * 250)
+					if !opened3 {
+						break
+					}
+				}
+
+				for {
+					message4, opened4 := <- out4
+					fmt.Println(message4)
+					time.Sleep(time.Millisecond * 250)
+					if !opened4 {
+						break
+					}
+				}
+
+				if !opened1 {
+					break
+				}
+			}
+
 			break
+
 		} else {
 			switch choice {
 			case "1":
@@ -53,4 +103,10 @@ func main() {
 			}
 		}
 	}
+}
+
+func IDontKnowHowToUseConcurrencyHere(out chan string, processName string) {
+	defer close(out)
+	out <- fmt.Sprintf("process %s started", processName)
+	out <- fmt.Sprintf("process %s finished", processName)
 }
